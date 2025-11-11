@@ -1,0 +1,149 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model CompanyInfo {
+  code               String @db.VarChar(5)
+  date               String @db.VarChar(128)
+  companyName        String? @db.VarChar(128) @map("company_name")
+  companyNameEnglish String? @db.VarChar(128) @map("company_name_english")
+  sector17Code       String? @db.VarChar(128) @map("sector17_code")
+  sector17CodeName   String? @db.VarChar(128) @map("sector17_code_name")
+  sector33Code       String? @db.VarChar(128) @map("sector33_code")
+  sector33CodeName   String? @db.VarChar(128) @map("sector33_code_name")
+  scaleCategory      String? @db.VarChar(128) @map("scale_category")
+  marketCode         String? @db.VarChar(128) @map("market_code")
+  marketCodeName     String? @db.VarChar(128) @map("market_code_name")
+  marginCode         String? @db.VarChar(128) @map("margin_code")
+  marginCodeName     String? @db.VarChar(128) @map("margin_code_name")
+
+  // ✅ relation
+  finsStatements        FinsStatement[]
+
+  @@id([code])
+  @@map("company_info")
+}
+
+model FinsStatement {
+
+  localCode         String @db.VarChar(5) @map("local_code")
+  companyInfo       CompanyInfo @relation(fields: [localCode], references: [code])  
+  disclosureNumber  String @db.VarChar(128) @id @map("disclosure_number")
+  disclosedDate     String @db.VarChar(128) @map("disclosed_date")
+  disclosedTime     String? @db.VarChar(128) @map("disclosed_time")
+  typeOfDocument    String? @db.VarChar(128) @map("type_of_document")
+  typeOfCurrentPeriod String? @db.VarChar(128) @map("type_of_current_period")
+
+  currentPeriodStartDate  String? @db.VarChar(128) @map("current_period_start_date")
+  currentPeriodEndDate    String? @db.VarChar(128) @map("current_period_end_date")
+  currentFiscalYearStartDate String? @db.VarChar(128) @map("current_fiscal_year_start_date")
+  currentFiscalYearEndDate   String? @db.VarChar(128) @map("current_fiscal_year_end_date")
+  nextFiscalYearStartDate    String? @db.VarChar(128) @map("next_fiscal_year_start_date")
+  nextFiscalYearEndDate      String? @db.VarChar(128) @map("next_fiscal_year_end_date")
+
+  netSales           String? @db.VarChar(128) @map("net_sales")
+  operatingProfit    String? @db.VarChar(128) @map("operating_profit")
+  ordinaryProfit     String? @db.VarChar(128) @map("ordinary_profit")
+  profit             String? @db.VarChar(128) @map("profit")
+
+  earningsPerShare         String? @db.VarChar(128) @map("earnings_per_share")
+  dilutedEarningsPerShare  String? @db.VarChar(128) @map("diluted_earnings_per_share")
+  bookValuePerShare        String? @db.VarChar(128) @map("book_value_per_share")
+
+  totalAssets        String? @db.VarChar(128) @map("total_assets")
+  equity             String? @db.VarChar(128) @map("equity")
+  equityToAssetRatio String? @db.VarChar(128) @map("equity_to_asset_ratio")
+
+  cashFlowsFromOperatingActivities String? @db.VarChar(128) @map("cash_flows_from_operating_activities")
+  cashFlowsFromInvestingActivities String? @db.VarChar(128) @map("cash_flows_from_investing_activities")
+  cashFlowsFromFinancingActivities String? @db.VarChar(128) @map("cash_flows_from_financing_activities")
+  cashAndEquivalents               String? @db.VarChar(128) @map("cash_and_equivalents")
+
+  resultDividendPerShare1stQuarter     String? @db.VarChar(128) @map("result_dividend_per_share_1st_quarter")
+  resultDividendPerShare2ndQuarter     String? @db.VarChar(128) @map("result_dividend_per_share_2nd_quarter")
+  resultDividendPerShare3rdQuarter     String? @db.VarChar(128) @map("result_dividend_per_share_3rd_quarter")
+  resultDividendPerShareFiscalYearEnd  String? @db.VarChar(128) @map("result_dividend_per_share_fiscal_year_end")
+  resultDividendPerShareAnnual         String? @db.VarChar(128) @map("result_dividend_per_share_annual")
+  resultTotalDividendPaidAnnual        String? @db.VarChar(128) @map("result_total_dividend_paid_annual")
+  resultPayoutRatioAnnual              String? @db.VarChar(128) @map("result_payout_ratio_annual")
+
+  forecastDividendPerShare1stQuarter     String? @db.VarChar(128) @map("forecast_dividend_per_share_1st_quarter")
+  forecastDividendPerShare2ndQuarter     String? @db.VarChar(128) @map("forecast_dividend_per_share_2nd_quarter")
+  forecastDividendPerShare3rdQuarter     String? @db.VarChar(128) @map("forecast_dividend_per_share_3rd_quarter")
+  forecastDividendPerShareFiscalYearEnd  String? @db.VarChar(128) @map("forecast_dividend_per_share_fiscal_year_end")
+  forecastDividendPerShareAnnual         String? @db.VarChar(128) @map("forecast_dividend_per_share_annual")
+  forecastTotalDividendPaidAnnual        String? @db.VarChar(128) @map("forecast_total_dividend_paid_annual")
+  forecastPayoutRatioAnnual              String? @db.VarChar(128) @map("forecast_payout_ratio_annual")
+
+  nextYearForecastDividendPerShare1stQuarter     String? @db.VarChar(128) @map("next_year_forecast_dividend_per_share_1st_quarter")
+  nextYearForecastDividendPerShare2ndQuarter     String? @db.VarChar(128) @map("next_year_forecast_dividend_per_share_2nd_quarter")
+  nextYearForecastDividendPerShare3rdQuarter     String? @db.VarChar(128) @map("next_year_forecast_dividend_per_share_3rd_quarter")
+  nextYearForecastDividendPerShareFiscalYearEnd  String? @db.VarChar(128) @map("next_year_forecast_dividend_per_share_fiscal_year_end")
+  nextYearForecastDividendPerShareAnnual         String? @db.VarChar(128) @map("next_year_forecast_dividend_per_share_annual")
+  nextYearForecastPayoutRatioAnnual              String? @db.VarChar(128) @map("next_year_forecast_payout_ratio_annual")
+
+  forecastNetSales2ndQuarter        String? @db.VarChar(128) @map("forecast_net_sales_2nd_quarter")
+  forecastOperatingProfit2ndQuarter String? @db.VarChar(128) @map("forecast_operating_profit_2nd_quarter")
+  forecastOrdinaryProfit2ndQuarter  String? @db.VarChar(128) @map("forecast_ordinary_profit_2nd_quarter")
+  forecastProfit2ndQuarter          String? @db.VarChar(128) @map("forecast_profit_2nd_quarter")
+  forecastEarningsPerShare2ndQuarter String? @db.VarChar(128) @map("forecast_earnings_per_share_2nd_quarter")
+
+  nextYearForecastNetSales2ndQuarter        String? @db.VarChar(128) @map("next_year_forecast_net_sales_2nd_quarter")
+  nextYearForecastOperatingProfit2ndQuarter String? @db.VarChar(128) @map("next_year_forecast_operating_profit_2nd_quarter")
+  nextYearForecastOrdinaryProfit2ndQuarter  String? @db.VarChar(128) @map("next_year_forecast_ordinary_profit_2nd_quarter")
+  nextYearForecastProfit2ndQuarter          String? @db.VarChar(128) @map("next_year_forecast_profit_2nd_quarter")
+  nextYearForecastEarningsPerShare2ndQuarter String? @db.VarChar(128) @map("next_year_forecast_earnings_per_share_2nd_quarter")
+
+  forecastNetSales         String? @db.VarChar(128) @map("forecast_net_sales")
+  forecastOperatingProfit  String? @db.VarChar(128) @map("forecast_operating_profit")
+  forecastOrdinaryProfit   String? @db.VarChar(128) @map("forecast_ordinary_profit")
+  forecastProfit           String? @db.VarChar(128) @map("forecast_profit")
+  forecastEarningsPerShare String? @db.VarChar(128) @map("forecast_earnings_per_share")
+
+  nextYearForecastNetSales         String? @db.VarChar(128) @map("next_year_forecast_net_sales")
+  nextYearForecastOperatingProfit  String? @db.VarChar(128) @map("next_year_forecast_operating_profit")
+  nextYearForecastOrdinaryProfit   String? @db.VarChar(128) @map("next_year_forecast_ordinary_profit")
+  nextYearForecastProfit           String? @db.VarChar(128) @map("next_year_forecast_profit")
+  nextYearForecastEarningsPerShare String? @db.VarChar(128) @map("next_year_forecast_earnings_per_share")
+
+  numberOfIssuedAndOutstandingSharesAtEnd String? @db.VarChar(128) @map("number_of_issued_and_outstanding_shares_at_end")
+  numberOfTreasuryStockAtEnd             String? @db.VarChar(128) @map("number_of_treasury_stock_at_end")
+  averageNumberOfShares                  String? @db.VarChar(128) @map("average_number_of_shares")
+
+  @@index([localCode, disclosedDate])
+  @@map("fins_statement")
+}
+
+model DailyStockInfo {
+  code        String  @db.VarChar(5) @map("code")
+  date        String  @db.VarChar(128) @map("date")
+  open   Float? @map("open")
+  hight  Float? @map("hight")
+  low    Float? @map("low")
+  close   Float? @map("close")
+  upperLimit String @db.VarChar(1) @map("upper_limit")
+  lowerLimit String @db.VarChar(1) @map("lower_limit")
+  volume     Float?    @map("volume")
+  tradingValue Float?  @map("trading_value")
+  adjustmentFactor Float? @map("adjustment_factor")
+  adjustmentOpen Float? @map("adjustment_open")
+  adjustmentHigh Float? @map("adjustment_high")
+  adjustmentLow Float? @map("adjustment_low")
+  adjustmentClose Float? @map("adjustment_close")
+  adjustmentVolume Float? @map("adjustment_volume")
+
+  @@id([code, date])
+  @@map("daily_stock_info")
+}

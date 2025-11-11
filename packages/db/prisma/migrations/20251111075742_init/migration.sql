@@ -1,0 +1,121 @@
+-- CreateTable
+CREATE TABLE "company_info" (
+    "code" VARCHAR(5) NOT NULL,
+    "date" VARCHAR(128) NOT NULL,
+    "company_name" VARCHAR(128),
+    "company_name_english" VARCHAR(128),
+    "sector17_code" VARCHAR(128),
+    "sector17_code_name" VARCHAR(128),
+    "sector33_code" VARCHAR(128),
+    "sector33_code_name" VARCHAR(128),
+    "scale_category" VARCHAR(128),
+    "market_code" VARCHAR(128),
+    "market_code_name" VARCHAR(128),
+    "margin_code" VARCHAR(128),
+    "margin_code_name" VARCHAR(128),
+
+    CONSTRAINT "company_info_pkey" PRIMARY KEY ("code")
+);
+
+-- CreateTable
+CREATE TABLE "fins_statement" (
+    "local_code" VARCHAR(5) NOT NULL,
+    "disclosure_number" VARCHAR(128) NOT NULL,
+    "disclosed_date" VARCHAR(128) NOT NULL,
+    "disclosed_time" VARCHAR(128),
+    "type_of_document" VARCHAR(128),
+    "type_of_current_period" VARCHAR(128),
+    "current_period_start_date" VARCHAR(128),
+    "current_period_end_date" VARCHAR(128),
+    "current_fiscal_year_start_date" VARCHAR(128),
+    "current_fiscal_year_end_date" VARCHAR(128),
+    "next_fiscal_year_start_date" VARCHAR(128),
+    "next_fiscal_year_end_date" VARCHAR(128),
+    "net_sales" VARCHAR(128),
+    "operating_profit" VARCHAR(128),
+    "ordinary_profit" VARCHAR(128),
+    "profit" VARCHAR(128),
+    "earnings_per_share" VARCHAR(128),
+    "diluted_earnings_per_share" VARCHAR(128),
+    "book_value_per_share" VARCHAR(128),
+    "total_assets" VARCHAR(128),
+    "equity" VARCHAR(128),
+    "equity_to_asset_ratio" VARCHAR(128),
+    "cash_flows_from_operating_activities" VARCHAR(128),
+    "cash_flows_from_investing_activities" VARCHAR(128),
+    "cash_flows_from_financing_activities" VARCHAR(128),
+    "cash_and_equivalents" VARCHAR(128),
+    "result_dividend_per_share_1st_quarter" VARCHAR(128),
+    "result_dividend_per_share_2nd_quarter" VARCHAR(128),
+    "result_dividend_per_share_3rd_quarter" VARCHAR(128),
+    "result_dividend_per_share_fiscal_year_end" VARCHAR(128),
+    "result_dividend_per_share_annual" VARCHAR(128),
+    "result_total_dividend_paid_annual" VARCHAR(128),
+    "result_payout_ratio_annual" VARCHAR(128),
+    "forecast_dividend_per_share_1st_quarter" VARCHAR(128),
+    "forecast_dividend_per_share_2nd_quarter" VARCHAR(128),
+    "forecast_dividend_per_share_3rd_quarter" VARCHAR(128),
+    "forecast_dividend_per_share_fiscal_year_end" VARCHAR(128),
+    "forecast_dividend_per_share_annual" VARCHAR(128),
+    "forecast_total_dividend_paid_annual" VARCHAR(128),
+    "forecast_payout_ratio_annual" VARCHAR(128),
+    "next_year_forecast_dividend_per_share_1st_quarter" VARCHAR(128),
+    "next_year_forecast_dividend_per_share_2nd_quarter" VARCHAR(128),
+    "next_year_forecast_dividend_per_share_3rd_quarter" VARCHAR(128),
+    "next_year_forecast_dividend_per_share_fiscal_year_end" VARCHAR(128),
+    "next_year_forecast_dividend_per_share_annual" VARCHAR(128),
+    "next_year_forecast_payout_ratio_annual" VARCHAR(128),
+    "forecast_net_sales_2nd_quarter" VARCHAR(128),
+    "forecast_operating_profit_2nd_quarter" VARCHAR(128),
+    "forecast_ordinary_profit_2nd_quarter" VARCHAR(128),
+    "forecast_profit_2nd_quarter" VARCHAR(128),
+    "forecast_earnings_per_share_2nd_quarter" VARCHAR(128),
+    "next_year_forecast_net_sales_2nd_quarter" VARCHAR(128),
+    "next_year_forecast_operating_profit_2nd_quarter" VARCHAR(128),
+    "next_year_forecast_ordinary_profit_2nd_quarter" VARCHAR(128),
+    "next_year_forecast_profit_2nd_quarter" VARCHAR(128),
+    "next_year_forecast_earnings_per_share_2nd_quarter" VARCHAR(128),
+    "forecast_net_sales" VARCHAR(128),
+    "forecast_operating_profit" VARCHAR(128),
+    "forecast_ordinary_profit" VARCHAR(128),
+    "forecast_profit" VARCHAR(128),
+    "forecast_earnings_per_share" VARCHAR(128),
+    "next_year_forecast_net_sales" VARCHAR(128),
+    "next_year_forecast_operating_profit" VARCHAR(128),
+    "next_year_forecast_ordinary_profit" VARCHAR(128),
+    "next_year_forecast_profit" VARCHAR(128),
+    "next_year_forecast_earnings_per_share" VARCHAR(128),
+    "number_of_issued_and_outstanding_shares_at_end" VARCHAR(128),
+    "number_of_treasury_stock_at_end" VARCHAR(128),
+    "average_number_of_shares" VARCHAR(128),
+
+    CONSTRAINT "fins_statement_pkey" PRIMARY KEY ("disclosure_number")
+);
+
+-- CreateTable
+CREATE TABLE "daily_stock_info" (
+    "code" VARCHAR(5) NOT NULL,
+    "date" VARCHAR(128) NOT NULL,
+    "open" DOUBLE PRECISION,
+    "hight" DOUBLE PRECISION,
+    "low" DOUBLE PRECISION,
+    "close" DOUBLE PRECISION,
+    "upper_limit" VARCHAR(1) NOT NULL,
+    "lower_limit" VARCHAR(1) NOT NULL,
+    "volume" DOUBLE PRECISION,
+    "trading_value" DOUBLE PRECISION,
+    "adjustment_factor" DOUBLE PRECISION,
+    "adjustment_open" DOUBLE PRECISION,
+    "adjustment_high" DOUBLE PRECISION,
+    "adjustment_low" DOUBLE PRECISION,
+    "adjustment_close" DOUBLE PRECISION,
+    "adjustment_volume" DOUBLE PRECISION,
+
+    CONSTRAINT "daily_stock_info_pkey" PRIMARY KEY ("code","date")
+);
+
+-- CreateIndex
+CREATE INDEX "fins_statement_local_code_disclosed_date_idx" ON "fins_statement"("local_code", "disclosed_date");
+
+-- AddForeignKey
+ALTER TABLE "fins_statement" ADD CONSTRAINT "fins_statement_local_code_fkey" FOREIGN KEY ("local_code") REFERENCES "company_info"("code") ON DELETE RESTRICT ON UPDATE CASCADE;
