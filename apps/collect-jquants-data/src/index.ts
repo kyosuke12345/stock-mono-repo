@@ -17,7 +17,34 @@ async function main(): Promise<void> {
   console.log("Starting J-Quants data collection");
 
   await syncCompanyInfo();
-  await syncStatements();
+  const companies = await prisma.companyInfo.findMany({
+    orderBy: { code: "asc" },
+  });
+  const companyLength = companies.length;
+  let processedCount = 0;
+  const startTime = Date.now();
+  console.log(`Fetched ${companyLength} companies from DB`);
+  await processInChunks(
+    companies.map((c) => c.code),
+    async (chunk) => {
+      const chunkPromises = chunk.map((code) => syncData(code));
+      await Promise.all(chunkPromises);
+      processedCount += chunk.length;
+      const elapsed = (Date.now() - startTime) / 1000;
+      console.log(
+        `Processed ${processedCount} / ${companyLength} companies in ${elapsed.toFixed(
+          2
+        )} seconds`
+      );
+    },
+    20
+  );
+  const totalElapsed = (Date.now() - startTime) / 1000;
+  console.log(
+    `Completed data sync for ${companyLength} companies in ${totalElapsed.toFixed(
+      2
+    )} seconds`
+  );
   // await syncDailyQuotes();
 }
 
@@ -44,36 +71,31 @@ async function syncCompanyInfo(): Promise<void> {
   console.log("Company info upsert completed");
 }
 
-async function syncStatements(): Promise<void> {
-  console.log("Fetching financial statements...");
-  const companies = await prisma.companyInfo.findMany();
-  for (const company of companies) {
-    console.log(`Fetched financial statement records. ${company.code}`);
-    const companyStatements = await client.fetchStatements({
-      code: company.code,
+async function syncData(companyCode: string): Promise<void> {
+  console.log(`syncData records. ${companyCode}`);
+  const [companyStatements, quotes] = await Promise.all([
+    client.fetchStatements({
+      code: companyCode,
+    }),
+    client.fetchDailyQuotes({
+      code: companyCode,
+    }),
+  ]);
+  if (companyStatements.length > 0) {
+    await processInChunks(companyStatements, async (chunk) => {
+      return prisma.$transaction(
+        chunk.map((record) => {
+          const data = mapFinsStatement(record);
+          return prisma.finsStatement.upsert({
+            where: { disclosureNumber: data.disclosureNumber },
+            create: data,
+            update: data,
+          });
+        })
+      );
     });
-    if (companyStatements.length > 0) {
-      await processInChunks(companyStatements, async (chunk) => {
-        return prisma.$transaction(
-          chunk.map((record) => {
-            const data = mapFinsStatement(record);
-            return prisma.finsStatement.upsert({
-              where: { disclosureNumber: data.disclosureNumber },
-              create: data,
-              update: data,
-            });
-          })
-        );
-      });
-    }
-    const quotes = await client.fetchDailyQuotes({
-      code: company.code,
-    });
-    console.log(
-      `Fetched ${quotes.length} daily quote records. ${company.code}`
-    );
-
-    if (!quotes.length) return;
+  }
+  if (quotes.length > 0) {
     await processInChunks(quotes, async (chunk) => {
       return prisma.$transaction(
         chunk.map((record) => {
@@ -93,15 +115,16 @@ async function syncStatements(): Promise<void> {
     });
   }
 
-  console.log("Financial statements upsert completed");
+  console.log(`syncData complete. ${companyCode}`);
 }
 
 async function processInChunks<T>(
   items: T[],
-  executor: (chunk: T[]) => Promise<unknown>
+  executor: (chunk: T[]) => Promise<unknown>,
+  batchSize = BATCH_SIZE
 ): Promise<void> {
-  for (let index = 0; index < items.length; index += BATCH_SIZE) {
-    const chunk = items.slice(index, index + BATCH_SIZE);
+  for (let index = 0; index < items.length; index += batchSize) {
+    const chunk = items.slice(index, index + batchSize);
     await executor(chunk);
   }
 }
