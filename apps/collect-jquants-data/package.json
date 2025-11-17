@@ -1,0 +1,22 @@
+{
+  "name": "collect-jquants-data",
+  "version": "1.0.0",
+  "description": "Utility app that ingests data from the J-Quants API into the local database.",
+  "type": "module",
+  "scripts": {
+    "start": "tsx src/index.ts"
+  },
+  "author": "kyosuke",
+  "license": "ISC",
+  "packageManager": "pnpm@10.21.0",
+  "dependencies": {
+    "@repo/db": "workspace:*",
+    "axios": "^1.13.2",
+    "dotenv": "^16.4.7"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.4",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.3"
+  }
+}

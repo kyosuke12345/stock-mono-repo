@@ -11,7 +11,7 @@
     "outDir": "dist",
     "baseUrl": ".",
     "paths": {
-      "@repo/db": ["packages/db/src"],
+      "@repo/db": ["packages/db/src/index.ts"],
       "@repo/db/*": ["packages/db/src/*"]
     }
   }
