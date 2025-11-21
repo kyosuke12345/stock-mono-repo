@@ -1,6 +1,6 @@
 import { prisma } from "@repo/db";
 import { env } from "./env.js";
-import { JQuantsClient, StatementRecord } from "./jquants-client.js";
+import { JQuantsClient } from "./jquants-client.js";
 import {
   mapCompanyInfo,
   mapDailyStockInfo,
@@ -37,7 +37,7 @@ async function main(): Promise<void> {
         )} seconds`
       );
     },
-    20
+    30
   );
   const totalElapsed = (Date.now() - startTime) / 1000;
   console.log(

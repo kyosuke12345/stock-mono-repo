@@ -75,6 +75,7 @@ export type StatementRecord = {
   ResultDividendPerShare3rdQuarter?: string;
   ResultDividendPerShareFiscalYearEnd?: string;
   ResultDividendPerShareAnnual?: string;
+  DistributionsPerUnitREIT?: string;
   ResultTotalDividendPaidAnnual?: string;
   ResultPayoutRatioAnnual?: string;
   ForecastDividendPerShare1stQuarter?: string;
@@ -82,6 +83,7 @@ export type StatementRecord = {
   ForecastDividendPerShare3rdQuarter?: string;
   ForecastDividendPerShareFiscalYearEnd?: string;
   ForecastDividendPerShareAnnual?: string;
+  ForecastDistributionsPerUnitREIT?: string;
   ForecastTotalDividendPaidAnnual?: string;
   ForecastPayoutRatioAnnual?: string;
   NextYearForecastDividendPerShare1stQuarter?: string;
@@ -89,6 +91,7 @@ export type StatementRecord = {
   NextYearForecastDividendPerShare3rdQuarter?: string;
   NextYearForecastDividendPerShareFiscalYearEnd?: string;
   NextYearForecastDividendPerShareAnnual?: string;
+  NextYearForecastDistributionsPerUnitREIT?: string;
   NextYearForecastPayoutRatioAnnual?: string;
   ForecastNetSales2ndQuarter?: string;
   ForecastOperatingProfit2ndQuarter?: string;
@@ -113,6 +116,43 @@ export type StatementRecord = {
   NumberOfIssuedAndOutstandingSharesAtEnd?: string;
   NumberOfTreasuryStockAtEnd?: string;
   AverageNumberOfShares?: string;
+  NumberOfIssuedAndOutstandingSharesAtTheEndOfFiscalYearIncludingTreasuryStock?: string;
+  NumberOfTreasuryStockAtTheEndOfFiscalYear?: string;
+  MaterialChangesInSubsidiaries?: string;
+  SignificantChangesInTheScopeOfConsolidation?: string;
+  ChangesBasedOnRevisionsOfAccountingStandard?: string;
+  ChangesOtherThanOnesBasedOnRevisionsOfAccountingStandard?: string;
+  ChangesInAccountingEstimates?: string;
+  RetrospectiveRestatement?: string;
+  NonConsolidatedNetSales?: string;
+  NonConsolidatedOperatingProfit?: string;
+  NonConsolidatedOrdinaryProfit?: string;
+  NonConsolidatedProfit?: string;
+  NonConsolidatedEarningsPerShare?: string;
+  NonConsolidatedTotalAssets?: string;
+  NonConsolidatedEquity?: string;
+  NonConsolidatedEquityToAssetRatio?: string;
+  NonConsolidatedBookValuePerShare?: string;
+  ForecastNonConsolidatedNetSales2ndQuarter?: string;
+  ForecastNonConsolidatedOperatingProfit2ndQuarter?: string;
+  ForecastNonConsolidatedOrdinaryProfit2ndQuarter?: string;
+  ForecastNonConsolidatedProfit2ndQuarter?: string;
+  ForecastNonConsolidatedEarningsPerShare2ndQuarter?: string;
+  NextYearForecastNonConsolidatedNetSales2ndQuarter?: string;
+  NextYearForecastNonConsolidatedOperatingProfit2ndQuarter?: string;
+  NextYearForecastNonConsolidatedOrdinaryProfit2ndQuarter?: string;
+  NextYearForecastNonConsolidatedProfit2ndQuarter?: string;
+  NextYearForecastNonConsolidatedEarningsPerShare2ndQuarter?: string;
+  ForecastNonConsolidatedNetSales?: string;
+  ForecastNonConsolidatedOperatingProfit?: string;
+  ForecastNonConsolidatedOrdinaryProfit?: string;
+  ForecastNonConsolidatedProfit?: string;
+  ForecastNonConsolidatedEarningsPerShare?: string;
+  NextYearForecastNonConsolidatedNetSales?: string;
+  NextYearForecastNonConsolidatedOperatingProfit?: string;
+  NextYearForecastNonConsolidatedOrdinaryProfit?: string;
+  NextYearForecastNonConsolidatedProfit?: string;
+  NextYearForecastNonConsolidatedEarningsPerShare?: string;
 };
 
 type ClientOptions = {

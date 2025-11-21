@@ -76,6 +76,7 @@ model FinsStatement {
   resultDividendPerShare3rdQuarter     String? @db.VarChar(128) @map("result_dividend_per_share_3rd_quarter")
   resultDividendPerShareFiscalYearEnd  String? @db.VarChar(128) @map("result_dividend_per_share_fiscal_year_end")
   resultDividendPerShareAnnual         String? @db.VarChar(128) @map("result_dividend_per_share_annual")
+  distributionsPerUnitReit             String? @db.VarChar(128) @map("distributions_per_unit_reit")
   resultTotalDividendPaidAnnual        String? @db.VarChar(128) @map("result_total_dividend_paid_annual")
   resultPayoutRatioAnnual              String? @db.VarChar(128) @map("result_payout_ratio_annual")
 
@@ -84,6 +85,7 @@ model FinsStatement {
   forecastDividendPerShare3rdQuarter     String? @db.VarChar(128) @map("forecast_dividend_per_share_3rd_quarter")
   forecastDividendPerShareFiscalYearEnd  String? @db.VarChar(128) @map("forecast_dividend_per_share_fiscal_year_end")
   forecastDividendPerShareAnnual         String? @db.VarChar(128) @map("forecast_dividend_per_share_annual")
+  forecastDistributionsPerUnitReit       String? @db.VarChar(128) @map("forecast_distributions_per_unit_reit")
   forecastTotalDividendPaidAnnual        String? @db.VarChar(128) @map("forecast_total_dividend_paid_annual")
   forecastPayoutRatioAnnual              String? @db.VarChar(128) @map("forecast_payout_ratio_annual")
 
@@ -92,6 +94,7 @@ model FinsStatement {
   nextYearForecastDividendPerShare3rdQuarter     String? @db.VarChar(128) @map("next_year_forecast_dividend_per_share_3rd_quarter")
   nextYearForecastDividendPerShareFiscalYearEnd  String? @db.VarChar(128) @map("next_year_forecast_dividend_per_share_fiscal_year_end")
   nextYearForecastDividendPerShareAnnual         String? @db.VarChar(128) @map("next_year_forecast_dividend_per_share_annual")
+  nextYearForecastDistributionsPerUnitReit       String? @db.VarChar(128) @map("next_year_forecast_distributions_per_unit_reit")
   nextYearForecastPayoutRatioAnnual              String? @db.VarChar(128) @map("next_year_forecast_payout_ratio_annual")
 
   forecastNetSales2ndQuarter        String? @db.VarChar(128) @map("forecast_net_sales_2nd_quarter")
@@ -121,6 +124,49 @@ model FinsStatement {
   numberOfIssuedAndOutstandingSharesAtEnd String? @db.VarChar(128) @map("number_of_issued_and_outstanding_shares_at_end")
   numberOfTreasuryStockAtEnd             String? @db.VarChar(128) @map("number_of_treasury_stock_at_end")
   averageNumberOfShares                  String? @db.VarChar(128) @map("average_number_of_shares")
+  numberOfIssuedAndOutstandingSharesAtTheEndOfFiscalYearIncludingTreasuryStock String? @db.VarChar(128) @map("number_of_issued_and_outstanding_shares_at_the_end_of_fiscal_year_including_treasury_stock")
+  numberOfTreasuryStockAtTheEndOfFiscalYear String? @db.VarChar(128) @map("number_of_treasury_stock_at_the_end_of_fiscal_year")
+
+  nonConsolidatedNetSales             String? @db.VarChar(128) @map("non_consolidated_net_sales")
+  nonConsolidatedOperatingProfit      String? @db.VarChar(128) @map("non_consolidated_operating_profit")
+  nonConsolidatedOrdinaryProfit       String? @db.VarChar(128) @map("non_consolidated_ordinary_profit")
+  nonConsolidatedProfit               String? @db.VarChar(128) @map("non_consolidated_profit")
+  nonConsolidatedEarningsPerShare     String? @db.VarChar(128) @map("non_consolidated_earnings_per_share")
+  nonConsolidatedTotalAssets          String? @db.VarChar(128) @map("non_consolidated_total_assets")
+  nonConsolidatedEquity               String? @db.VarChar(128) @map("non_consolidated_equity")
+  nonConsolidatedEquityToAssetRatio   String? @db.VarChar(128) @map("non_consolidated_equity_to_asset_ratio")
+  nonConsolidatedBookValuePerShare    String? @db.VarChar(128) @map("non_consolidated_book_value_per_share")
+
+  forecastNonConsolidatedNetSales2ndQuarter        String? @db.VarChar(128) @map("forecast_non_consolidated_net_sales_2nd_quarter")
+  forecastNonConsolidatedOperatingProfit2ndQuarter String? @db.VarChar(128) @map("forecast_non_consolidated_operating_profit_2nd_quarter")
+  forecastNonConsolidatedOrdinaryProfit2ndQuarter  String? @db.VarChar(128) @map("forecast_non_consolidated_ordinary_profit_2nd_quarter")
+  forecastNonConsolidatedProfit2ndQuarter          String? @db.VarChar(128) @map("forecast_non_consolidated_profit_2nd_quarter")
+  forecastNonConsolidatedEarningsPerShare2ndQuarter String? @db.VarChar(128) @map("forecast_non_consolidated_earnings_per_share_2nd_quarter")
+
+  nextYearForecastNonConsolidatedNetSales2ndQuarter        String? @db.VarChar(128) @map("next_year_forecast_non_consolidated_net_sales_2nd_quarter")
+  nextYearForecastNonConsolidatedOperatingProfit2ndQuarter String? @db.VarChar(128) @map("next_year_forecast_non_consolidated_operating_profit_2nd_quarter")
+  nextYearForecastNonConsolidatedOrdinaryProfit2ndQuarter  String? @db.VarChar(128) @map("next_year_forecast_non_consolidated_ordinary_profit_2nd_quarter")
+  nextYearForecastNonConsolidatedProfit2ndQuarter          String? @db.VarChar(128) @map("next_year_forecast_non_consolidated_profit_2nd_quarter")
+  nextYearForecastNonConsolidatedEarningsPerShare2ndQuarter String? @db.VarChar(128) @map("next_year_forecast_non_consolidated_earnings_per_share_2nd_quarter")
+
+  forecastNonConsolidatedNetSales         String? @db.VarChar(128) @map("forecast_non_consolidated_net_sales")
+  forecastNonConsolidatedOperatingProfit  String? @db.VarChar(128) @map("forecast_non_consolidated_operating_profit")
+  forecastNonConsolidatedOrdinaryProfit   String? @db.VarChar(128) @map("forecast_non_consolidated_ordinary_profit")
+  forecastNonConsolidatedProfit           String? @db.VarChar(128) @map("forecast_non_consolidated_profit")
+  forecastNonConsolidatedEarningsPerShare String? @db.VarChar(128) @map("forecast_non_consolidated_earnings_per_share")
+
+  nextYearForecastNonConsolidatedNetSales         String? @db.VarChar(128) @map("next_year_forecast_non_consolidated_net_sales")
+  nextYearForecastNonConsolidatedOperatingProfit  String? @db.VarChar(128) @map("next_year_forecast_non_consolidated_operating_profit")
+  nextYearForecastNonConsolidatedOrdinaryProfit   String? @db.VarChar(128) @map("next_year_forecast_non_consolidated_ordinary_profit")
+  nextYearForecastNonConsolidatedProfit           String? @db.VarChar(128) @map("next_year_forecast_non_consolidated_profit")
+  nextYearForecastNonConsolidatedEarningsPerShare String? @db.VarChar(128) @map("next_year_forecast_non_consolidated_earnings_per_share")
+
+  materialChangesInSubsidiaries                  String? @db.VarChar(128) @map("material_changes_in_subsidiaries")
+  significantChangesInTheScopeOfConsolidation    String? @db.VarChar(128) @map("significant_changes_in_the_scope_of_consolidation")
+  changesBasedOnRevisionsOfAccountingStandard    String? @db.VarChar(128) @map("changes_based_on_revisions_of_accounting_standard")
+  changesOtherThanOnesBasedOnRevisionsOfAccountingStandard String? @db.VarChar(128) @map("changes_other_than_ones_based_on_revisions_of_accounting_standard")
+  changesInAccountingEstimates                   String? @db.VarChar(128) @map("changes_in_accounting_estimates")
+  retrospectiveRestatement                       String? @db.VarChar(128) @map("retrospective_restatement")
 
   @@index([localCode, disclosedDate])
   @@map("fins_statement")

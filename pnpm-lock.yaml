@@ -40,6 +40,31 @@ importers:
         specifier: ^5.6.3
         version: 5.9.3
 
+  apps/search-recommend-stock:
+    dependencies:
+      '@repo/db':
+        specifier: workspace:*
+        version: link:../../packages/db
+      '@repo/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
+      axios:
+        specifier: ^1.13.2
+        version: 1.13.2
+      dotenv:
+        specifier: ^16.4.7
+        version: 16.6.1
+    devDependencies:
+      '@types/node':
+        specifier: ^22.7.4
+        version: 22.19.0
+      tsx:
+        specifier: ^4.19.1
+        version: 4.20.6
+      typescript:
+        specifier: ^5.6.3
+        version: 5.9.3
+
   packages/db:
     dependencies:
       '@prisma/client':
@@ -58,6 +83,8 @@ importers:
       typescript:
         specifier: ^5.6.3
         version: 5.9.3
+
+  packages/utils: {}
 
 packages:
 
