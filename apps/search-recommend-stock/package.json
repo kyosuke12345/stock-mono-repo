@@ -15,7 +15,7 @@
     "@repo/db": "workspace:*",
     "@repo/utils": "workspace:*",
     "axios": "^1.13.2",
-    "dotenv": "^16.4.7"
+    "dotenv": "^16.6.1"
   },
   "devDependencies": {
     "@types/node": "^22.7.4",

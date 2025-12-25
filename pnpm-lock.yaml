@@ -52,7 +52,7 @@ importers:
         specifier: ^1.13.2
         version: 1.13.2
       dotenv:
-        specifier: ^16.4.7
+        specifier: ^16.6.1
         version: 16.6.1
     devDependencies:
       '@types/node':
@@ -84,7 +84,18 @@ importers:
         specifier: ^5.6.3
         version: 5.9.3
 
-  packages/utils: {}
+  packages/utils:
+    dependencies:
+      '@repo/db':
+        specifier: workspace:*
+        version: link:../db
+    devDependencies:
+      '@types/node':
+        specifier: ^22.7.4
+        version: 22.19.0
+      typescript:
+        specifier: ^5.6.3
+        version: 5.9.3
 
 packages:
 

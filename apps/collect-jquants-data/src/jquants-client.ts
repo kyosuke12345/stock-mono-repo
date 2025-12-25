@@ -2,180 +2,188 @@ import axios from "axios";
 
 type RequestParams = Record<string, string | number | undefined>;
 
-type PaginatedResponse<T extends string, R> = {
+type PaginatedResponse<R> = {
   pagination_key?: string | null;
-} & {
-  [K in T]: R[];
+  data?: R[];
 };
 
 export type ListedInfoRecord = {
   Code: string;
   Date: string;
-  CompanyName?: string;
-  CompanyNameEnglish?: string;
-  Sector17Code?: string;
-  Sector17CodeName?: string;
-  Sector33Code?: string;
-  Sector33CodeName?: string;
-  ScaleCategory?: string;
-  MarketCode?: string;
-  MarketCodeName?: string;
-  MarginCode?: string;
-  MarginCodeName?: string;
+  CoName?: string;
+  CoNameEn?: string;
+  S17?: string;
+  S17Nm?: string;
+  S33?: string;
+  S33Nm?: string;
+  ScaleCat?: string;
+  Mkt?: string;
+  MktNm?: string;
+  Mrgn?: string;
+  MrgnNm?: string;
 };
 
 export type DailyQuoteRecord = {
   Code: string;
   Date: string;
-  Open?: string | number;
-  High?: string | number;
-  Low?: string | number;
-  Close?: string | number;
-  UpperLimit?: string;
-  LowerLimit?: string;
-  Volume?: string | number;
-  TradingValue?: string | number;
-  AdjustmentFactor?: string | number;
-  AdjustmentOpen?: string | number;
-  AdjustmentHigh?: string | number;
-  AdjustmentLow?: string | number;
-  AdjustmentClose?: string | number;
-  AdjustmentVolume?: string | number;
+  O?: string | number;
+  H?: string | number;
+  L?: string | number;
+  C?: string | number;
+  UL?: string;
+  LL?: string;
+  Vo?: string | number;
+  Va?: string | number;
+  AdjFactor?: string | number;
+  AdjO?: string | number;
+  AdjH?: string | number;
+  AdjL?: string | number;
+  AdjC?: string | number;
+  AdjVo?: string | number;
 };
 
 export type StatementRecord = {
-  LocalCode: string;
-  DisclosureNumber: string;
-  DisclosedDate: string;
-  DisclosedTime?: string;
-  TypeOfDocument?: string;
-  TypeOfCurrentPeriod?: string;
-  CurrentPeriodStartDate?: string;
-  CurrentPeriodEndDate?: string;
-  CurrentFiscalYearStartDate?: string;
-  CurrentFiscalYearEndDate?: string;
-  NextFiscalYearStartDate?: string;
-  NextFiscalYearEndDate?: string;
-  NetSales?: string;
-  OperatingProfit?: string;
-  OrdinaryProfit?: string;
-  Profit?: string;
-  EarningsPerShare?: string;
-  DilutedEarningsPerShare?: string;
-  BookValuePerShare?: string;
-  TotalAssets?: string;
-  Equity?: string;
-  EquityToAssetRatio?: string;
-  CashFlowsFromOperatingActivities?: string;
-  CashFlowsFromInvestingActivities?: string;
-  CashFlowsFromFinancingActivities?: string;
-  CashAndEquivalents?: string;
-  ResultDividendPerShare1stQuarter?: string;
-  ResultDividendPerShare2ndQuarter?: string;
-  ResultDividendPerShare3rdQuarter?: string;
-  ResultDividendPerShareFiscalYearEnd?: string;
-  ResultDividendPerShareAnnual?: string;
-  DistributionsPerUnitREIT?: string;
-  ResultTotalDividendPaidAnnual?: string;
-  ResultPayoutRatioAnnual?: string;
-  ForecastDividendPerShare1stQuarter?: string;
-  ForecastDividendPerShare2ndQuarter?: string;
-  ForecastDividendPerShare3rdQuarter?: string;
-  ForecastDividendPerShareFiscalYearEnd?: string;
-  ForecastDividendPerShareAnnual?: string;
-  ForecastDistributionsPerUnitREIT?: string;
-  ForecastTotalDividendPaidAnnual?: string;
-  ForecastPayoutRatioAnnual?: string;
-  NextYearForecastDividendPerShare1stQuarter?: string;
-  NextYearForecastDividendPerShare2ndQuarter?: string;
-  NextYearForecastDividendPerShare3rdQuarter?: string;
-  NextYearForecastDividendPerShareFiscalYearEnd?: string;
-  NextYearForecastDividendPerShareAnnual?: string;
-  NextYearForecastDistributionsPerUnitREIT?: string;
-  NextYearForecastPayoutRatioAnnual?: string;
-  ForecastNetSales2ndQuarter?: string;
-  ForecastOperatingProfit2ndQuarter?: string;
-  ForecastOrdinaryProfit2ndQuarter?: string;
-  ForecastProfit2ndQuarter?: string;
-  ForecastEarningsPerShare2ndQuarter?: string;
-  NextYearForecastNetSales2ndQuarter?: string;
-  NextYearForecastOperatingProfit2ndQuarter?: string;
-  NextYearForecastOrdinaryProfit2ndQuarter?: string;
-  NextYearForecastProfit2ndQuarter?: string;
-  NextYearForecastEarningsPerShare2ndQuarter?: string;
-  ForecastNetSales?: string;
-  ForecastOperatingProfit?: string;
-  ForecastOrdinaryProfit?: string;
-  ForecastProfit?: string;
-  ForecastEarningsPerShare?: string;
-  NextYearForecastNetSales?: string;
-  NextYearForecastOperatingProfit?: string;
-  NextYearForecastOrdinaryProfit?: string;
-  NextYearForecastProfit?: string;
-  NextYearForecastEarningsPerShare?: string;
-  NumberOfIssuedAndOutstandingSharesAtEnd?: string;
-  NumberOfTreasuryStockAtEnd?: string;
-  AverageNumberOfShares?: string;
-  NumberOfIssuedAndOutstandingSharesAtTheEndOfFiscalYearIncludingTreasuryStock?: string;
-  NumberOfTreasuryStockAtTheEndOfFiscalYear?: string;
-  MaterialChangesInSubsidiaries?: string;
-  SignificantChangesInTheScopeOfConsolidation?: string;
-  ChangesBasedOnRevisionsOfAccountingStandard?: string;
-  ChangesOtherThanOnesBasedOnRevisionsOfAccountingStandard?: string;
-  ChangesInAccountingEstimates?: string;
-  RetrospectiveRestatement?: string;
-  NonConsolidatedNetSales?: string;
-  NonConsolidatedOperatingProfit?: string;
-  NonConsolidatedOrdinaryProfit?: string;
-  NonConsolidatedProfit?: string;
-  NonConsolidatedEarningsPerShare?: string;
-  NonConsolidatedTotalAssets?: string;
-  NonConsolidatedEquity?: string;
-  NonConsolidatedEquityToAssetRatio?: string;
-  NonConsolidatedBookValuePerShare?: string;
-  ForecastNonConsolidatedNetSales2ndQuarter?: string;
-  ForecastNonConsolidatedOperatingProfit2ndQuarter?: string;
-  ForecastNonConsolidatedOrdinaryProfit2ndQuarter?: string;
-  ForecastNonConsolidatedProfit2ndQuarter?: string;
-  ForecastNonConsolidatedEarningsPerShare2ndQuarter?: string;
-  NextYearForecastNonConsolidatedNetSales2ndQuarter?: string;
-  NextYearForecastNonConsolidatedOperatingProfit2ndQuarter?: string;
-  NextYearForecastNonConsolidatedOrdinaryProfit2ndQuarter?: string;
-  NextYearForecastNonConsolidatedProfit2ndQuarter?: string;
-  NextYearForecastNonConsolidatedEarningsPerShare2ndQuarter?: string;
-  ForecastNonConsolidatedNetSales?: string;
-  ForecastNonConsolidatedOperatingProfit?: string;
-  ForecastNonConsolidatedOrdinaryProfit?: string;
-  ForecastNonConsolidatedProfit?: string;
-  ForecastNonConsolidatedEarningsPerShare?: string;
-  NextYearForecastNonConsolidatedNetSales?: string;
-  NextYearForecastNonConsolidatedOperatingProfit?: string;
-  NextYearForecastNonConsolidatedOrdinaryProfit?: string;
-  NextYearForecastNonConsolidatedProfit?: string;
-  NextYearForecastNonConsolidatedEarningsPerShare?: string;
+  Code: string;
+  DiscNo: string;
+  DiscDate: string;
+  DiscTime?: string;
+  DocType?: string;
+  CurPerType?: string;
+  CurPerSt?: string;
+  CurPerEn?: string;
+  CurFYSt?: string;
+  CurFYEn?: string;
+  NxtFYSt?: string;
+  NxtFYEn?: string;
+  Sales?: string;
+  OP?: string;
+  OdP?: string;
+  NP?: string;
+  EPS?: string;
+  DEPS?: string;
+  BPS?: string;
+  TA?: string;
+  Eq?: string;
+  EqAR?: string;
+  CFO?: string;
+  CFI?: string;
+  CFF?: string;
+  CashEq?: string;
+  Div1Q?: string;
+  Div2Q?: string;
+  Div3Q?: string;
+  DivFY?: string;
+  DivAnn?: string;
+  DivUnit?: string;
+  DivTotalAnn?: string;
+  PayoutRatioAnn?: string;
+  FDiv1Q?: string;
+  FDiv2Q?: string;
+  FDiv3Q?: string;
+  FDivFY?: string;
+  FDivAnn?: string;
+  FDivUnit?: string;
+  FDivTotalAnn?: string;
+  FPayoutRatioAnn?: string;
+  NxFDiv1Q?: string;
+  NxFDiv2Q?: string;
+  NxFDiv3Q?: string;
+  NxFDivFY?: string;
+  NxFDivAnn?: string;
+  NxFDivUnit?: string;
+  NxFPayoutRatioAnn?: string;
+  FSales2Q?: string;
+  FOP2Q?: string;
+  FOdP2Q?: string;
+  FNP2Q?: string;
+  FEPS2Q?: string;
+  NxFSales2Q?: string;
+  NxFOP2Q?: string;
+  NxFOdP2Q?: string;
+  NxFNp2Q?: string;
+  NxFEPS2Q?: string;
+  FSales?: string;
+  FOP?: string;
+  FOdP?: string;
+  FNP?: string;
+  FEPS?: string;
+  NxFSales?: string;
+  NxFOP?: string;
+  NxFOdP?: string;
+  NxFNp?: string;
+  NxFEPS?: string;
+  MatChgSub?: string;
+  SigChgInC?: string;
+  ChgByASRev?: string;
+  ChgNoASRev?: string;
+  ChgAcEst?: string;
+  RetroRst?: string;
+  ShOutFY?: string;
+  TrShFY?: string;
+  AvgSh?: string;
+  NCSales?: string;
+  NCOP?: string;
+  NCOdP?: string;
+  NCNP?: string;
+  NCEPS?: string;
+  NCTA?: string;
+  NCEq?: string;
+  NCEqAR?: string;
+  NCBPS?: string;
+  FNCSales2Q?: string;
+  FNCOP2Q?: string;
+  FNCOdP2Q?: string;
+  FNCNP2Q?: string;
+  FNCEPS2Q?: string;
+  NxFNCSales2Q?: string;
+  NxFNCOP2Q?: string;
+  NxFNCOdP2Q?: string;
+  NxFNCNP2Q?: string;
+  NxFNCEPS2Q?: string;
+  FNCSales?: string;
+  FNCOP?: string;
+  FNCOdP?: string;
+  FNCNP?: string;
+  FNCEPS?: string;
+  NxFNCSales?: string;
+  NxFNCOP?: string;
+  NxFNCOdP?: string;
+  NxFNCNP?: string;
+  NxFNCEPS?: string;
 };
 
 type ClientOptions = {
-  refreshToken: string;
+  apiKey: string;
   baseUrl?: string;
   rateLimitMs?: number;
+  /**
+   * Maximum number of requests allowed in a sliding window.
+   * Default: 5 requests per 60 seconds (current J-Quants limit).
+   */
+  maxRequestsPerWindow?: number;
+  /**
+   * Sliding window size in milliseconds.
+   * Default: 60_000 ms (1 minute).
+   */
+  windowMs?: number;
 };
 
 export class JQuantsClient {
   private readonly baseUrl: string;
-  private readonly refreshToken: string;
-  private readonly rateLimitMs: number;
-  private idToken: string | null = null;
-  private idTokenExpiresAt = 0;
-  private pendingToken?: Promise<string>;
+  private readonly apiKey: string;
+  private readonly maxRequestsPerWindow: number;
+  private readonly windowMs: number;
+  private rateLimiter: Promise<void> = Promise.resolve();
+  private requestLog: number[] = [];
 
   constructor(options: ClientOptions) {
-    this.refreshToken = options.refreshToken;
-    this.baseUrl = (options.baseUrl ?? "https://api.jquants.com/v1/").replace(
+    this.apiKey = options.apiKey;
+    this.baseUrl = (options.baseUrl ?? "https://api.jquants.com/v2/").replace(
       /\/+$/,
       "/"
     );
-    this.rateLimitMs = options.rateLimitMs ?? 250;
+    this.maxRequestsPerWindow = options.maxRequestsPerWindow ?? 5;
+    this.windowMs = options.windowMs ?? 70_000;
   }
 
   /**
@@ -186,28 +194,19 @@ export class JQuantsClient {
   async fetchListedInfo(
     params: RequestParams = {}
   ): Promise<ListedInfoRecord[]> {
-    return this.fetchPaginated<ListedInfoRecord>("listed/info", "info", params);
+    return this.fetchPaginated<ListedInfoRecord>("equities/master", params);
   }
 
   async fetchDailyQuotes(params: RequestParams): Promise<DailyQuoteRecord[]> {
-    return this.fetchPaginated<DailyQuoteRecord>(
-      "prices/daily_quotes",
-      "daily_quotes",
-      params
-    );
+    return this.fetchPaginated<DailyQuoteRecord>("equities/bars/daily", params);
   }
 
   async fetchStatements(params: RequestParams): Promise<StatementRecord[]> {
-    return this.fetchPaginated<StatementRecord>(
-      "fins/statements",
-      "statements",
-      params
-    );
+    return this.fetchPaginated<StatementRecord>("fins/summary", params);
   }
 
   private async fetchPaginated<R>(
     path: string,
-    dataKey: string,
     params: RequestParams
   ): Promise<R[]> {
     const aggregated: R[] = [];
@@ -219,27 +218,24 @@ export class JQuantsClient {
         pageParams.pagination_key = paginationKey;
       }
 
-      const payload = await this.request<PaginatedResponse<typeof dataKey, R>>(
+      const payload = await this.request<PaginatedResponse<R>>(
         path,
         pageParams
       );
-      const records = (payload as Record<string, R[]>)[dataKey] ?? [];
+      const records = Array.isArray(payload.data) ? payload.data : [];
       aggregated.push(...records);
       paginationKey =
         typeof payload.pagination_key === "string"
           ? payload.pagination_key
           : undefined;
-
-      if (paginationKey) {
-        await this.sleep(this.rateLimitMs);
-      }
     } while (paginationKey);
 
     return aggregated;
   }
 
   private async request<T>(path: string, params: RequestParams): Promise<T> {
-    const idToken = await this.getIdToken();
+    await this.enqueueRateLimit();
+
     const url = new URL(path, this.baseUrl);
     console.log(
       `Requesting J-Quants API: ${path} with params`,
@@ -254,48 +250,13 @@ export class JQuantsClient {
     try {
       const response = await axios.get<T>(url.toString(), {
         headers: {
-          Authorization: `Bearer ${idToken}`,
+          "x-api-key": this.apiKey,
         },
       });
       return response.data;
     } catch (error) {
       throw this.createAxiosError(error, "J-Quants request failed");
     }
-  }
-
-  private async getIdToken(): Promise<string> {
-    if (this.idToken && Date.now() < this.idTokenExpiresAt) {
-      return this.idToken;
-    }
-
-    if (!this.pendingToken) {
-      this.pendingToken = this.refreshIdToken().finally(() => {
-        this.pendingToken = undefined;
-      });
-    }
-
-    return this.pendingToken;
-  }
-
-  private async refreshIdToken(): Promise<string> {
-    const url = new URL("token/auth_refresh", this.baseUrl);
-    url.searchParams.set("refreshtoken", this.refreshToken);
-    let result: { idToken?: string };
-    try {
-      const response = await axios.post<{ idToken?: string }>(url.toString());
-      result = response.data;
-    } catch (error) {
-      throw this.createAxiosError(error, "Failed to refresh J-Quants token");
-    }
-
-    if (!result.idToken) {
-      throw new Error("J-Quants auth response did not include idToken");
-    }
-
-    this.idToken = result.idToken;
-    console.log("Refreshed J-Quants ID token", this.idToken);
-    this.idTokenExpiresAt = Date.now() + 1000 * 60 * 55; // refresh roughly every 55 minutes
-    return result.idToken;
   }
 
   private createAxiosError(error: unknown, context: string): Error {
@@ -324,6 +285,29 @@ export class JQuantsClient {
   private async sleep(ms: number): Promise<void> {
     if (ms <= 0) return;
     await new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  private async enqueueRateLimit(): Promise<void> {
+    // Serialize rate-limit checks so concurrent calls don't violate the cap.
+    this.rateLimiter = this.rateLimiter.then(() => this.waitForSlot());
+    await this.rateLimiter;
+  }
+
+  private async waitForSlot(): Promise<void> {
+    const now = Date.now();
+    this.requestLog = this.requestLog.filter(
+      (timestamp) => now - timestamp < this.windowMs
+    );
+
+    if (this.requestLog.length >= this.maxRequestsPerWindow) {
+      const earliest = this.requestLog[0];
+      const waitMs = earliest + this.windowMs - now;
+      if (waitMs > 0) {
+        await this.sleep(waitMs);
+      }
+    }
+
+    this.requestLog.push(Date.now());
   }
 }
 

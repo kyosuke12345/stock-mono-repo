@@ -13,17 +13,17 @@ export function mapCompanyInfo(
   return {
     code: record.Code,
     date: record.Date,
-    companyName: record.CompanyName ?? null,
-    companyNameEnglish: record.CompanyNameEnglish ?? null,
-    sector17Code: record.Sector17Code ?? null,
-    sector17CodeName: record.Sector17CodeName ?? null,
-    sector33Code: record.Sector33Code ?? null,
-    sector33CodeName: record.Sector33CodeName ?? null,
-    scaleCategory: record.ScaleCategory ?? null,
-    marketCode: record.MarketCode ?? null,
-    marketCodeName: record.MarketCodeName ?? null,
-    marginCode: record.MarginCode ?? null,
-    marginCodeName: record.MarginCodeName ?? null,
+    companyName: record.CoName ?? null,
+    companyNameEnglish: record.CoNameEn ?? null,
+    sector17Code: record.S17 ?? null,
+    sector17CodeName: record.S17Nm ?? null,
+    sector33Code: record.S33 ?? null,
+    sector33CodeName: record.S33Nm ?? null,
+    scaleCategory: record.ScaleCat ?? null,
+    marketCode: record.Mkt ?? null,
+    marketCodeName: record.MktNm ?? null,
+    marginCode: record.Mrgn ?? null,
+    marginCodeName: record.MrgnNm ?? null,
   };
 }
 
@@ -33,20 +33,20 @@ export function mapDailyStockInfo(
   return {
     code: record.Code,
     date: record.Date,
-    open: toNumber(record.Open),
-    hight: toNumber(record.High),
-    low: toNumber(record.Low),
-    close: toNumber(record.Close),
-    upperLimit: record.UpperLimit ?? DEFAULT_FLAG_VALUE,
-    lowerLimit: record.LowerLimit ?? DEFAULT_FLAG_VALUE,
-    volume: toNumber(record.Volume),
-    tradingValue: toNumber(record.TradingValue),
-    adjustmentFactor: toNumber(record.AdjustmentFactor),
-    adjustmentOpen: toNumber(record.AdjustmentOpen),
-    adjustmentHigh: toNumber(record.AdjustmentHigh),
-    adjustmentLow: toNumber(record.AdjustmentLow),
-    adjustmentClose: toNumber(record.AdjustmentClose),
-    adjustmentVolume: toNumber(record.AdjustmentVolume),
+    open: toNumber(record.O),
+    hight: toNumber(record.H),
+    low: toNumber(record.L),
+    close: toNumber(record.C),
+    upperLimit: record.UL ?? DEFAULT_FLAG_VALUE,
+    lowerLimit: record.LL ?? DEFAULT_FLAG_VALUE,
+    volume: toNumber(record.Vo),
+    tradingValue: toNumber(record.Va),
+    adjustmentFactor: toNumber(record.AdjFactor),
+    adjustmentOpen: toNumber(record.AdjO),
+    adjustmentHigh: toNumber(record.AdjH),
+    adjustmentLow: toNumber(record.AdjL),
+    adjustmentClose: toNumber(record.AdjC),
+    adjustmentVolume: toNumber(record.AdjVo),
   };
 }
 
@@ -54,180 +54,122 @@ export function mapFinsStatement(
   record: StatementRecord
 ): Prisma.FinsStatementUncheckedCreateInput {
   return {
-    localCode: record.LocalCode,
-    disclosureNumber: record.DisclosureNumber,
-    disclosedDate: record.DisclosedDate,
-    disclosedTime: record.DisclosedTime ?? null,
-    typeOfDocument: record.TypeOfDocument ?? null,
-    typeOfCurrentPeriod: record.TypeOfCurrentPeriod ?? null,
-    currentPeriodStartDate: record.CurrentPeriodStartDate ?? null,
-    currentPeriodEndDate: record.CurrentPeriodEndDate ?? null,
-    currentFiscalYearStartDate: record.CurrentFiscalYearStartDate ?? null,
-    currentFiscalYearEndDate: record.CurrentFiscalYearEndDate ?? null,
-    nextFiscalYearStartDate: record.NextFiscalYearStartDate ?? null,
-    nextFiscalYearEndDate: record.NextFiscalYearEndDate ?? null,
-    netSales: record.NetSales ?? null,
-    operatingProfit: record.OperatingProfit ?? null,
-    ordinaryProfit: record.OrdinaryProfit ?? null,
-    profit: record.Profit ?? null,
-    earningsPerShare: record.EarningsPerShare ?? null,
-    dilutedEarningsPerShare: record.DilutedEarningsPerShare ?? null,
-    bookValuePerShare: record.BookValuePerShare ?? null,
-    totalAssets: record.TotalAssets ?? null,
-    equity: record.Equity ?? null,
-    equityToAssetRatio: record.EquityToAssetRatio ?? null,
-    cashFlowsFromOperatingActivities:
-      record.CashFlowsFromOperatingActivities ?? null,
-    cashFlowsFromInvestingActivities:
-      record.CashFlowsFromInvestingActivities ?? null,
-    cashFlowsFromFinancingActivities:
-      record.CashFlowsFromFinancingActivities ?? null,
-    cashAndEquivalents: record.CashAndEquivalents ?? null,
-    resultDividendPerShare1stQuarter:
-      record.ResultDividendPerShare1stQuarter ?? null,
-    resultDividendPerShare2ndQuarter:
-      record.ResultDividendPerShare2ndQuarter ?? null,
-    resultDividendPerShare3rdQuarter:
-      record.ResultDividendPerShare3rdQuarter ?? null,
-    resultDividendPerShareFiscalYearEnd:
-      record.ResultDividendPerShareFiscalYearEnd ?? null,
-    resultDividendPerShareAnnual: record.ResultDividendPerShareAnnual ?? null,
-    distributionsPerUnitReit: record.DistributionsPerUnitREIT ?? null,
-    resultTotalDividendPaidAnnual: record.ResultTotalDividendPaidAnnual ?? null,
-    resultPayoutRatioAnnual: record.ResultPayoutRatioAnnual ?? null,
-    forecastDividendPerShare1stQuarter:
-      record.ForecastDividendPerShare1stQuarter ?? null,
-    forecastDividendPerShare2ndQuarter:
-      record.ForecastDividendPerShare2ndQuarter ?? null,
-    forecastDividendPerShare3rdQuarter:
-      record.ForecastDividendPerShare3rdQuarter ?? null,
-    forecastDividendPerShareFiscalYearEnd:
-      record.ForecastDividendPerShareFiscalYearEnd ?? null,
-    forecastDividendPerShareAnnual:
-      record.ForecastDividendPerShareAnnual ?? null,
-    forecastDistributionsPerUnitReit:
-      record.ForecastDistributionsPerUnitREIT ?? null,
-    forecastTotalDividendPaidAnnual:
-      record.ForecastTotalDividendPaidAnnual ?? null,
-    forecastPayoutRatioAnnual: record.ForecastPayoutRatioAnnual ?? null,
-    nextYearForecastDividendPerShare1stQuarter:
-      record.NextYearForecastDividendPerShare1stQuarter ?? null,
-    nextYearForecastDividendPerShare2ndQuarter:
-      record.NextYearForecastDividendPerShare2ndQuarter ?? null,
-    nextYearForecastDividendPerShare3rdQuarter:
-      record.NextYearForecastDividendPerShare3rdQuarter ?? null,
-    nextYearForecastDividendPerShareFiscalYearEnd:
-      record.NextYearForecastDividendPerShareFiscalYearEnd ?? null,
-    nextYearForecastDividendPerShareAnnual:
-      record.NextYearForecastDividendPerShareAnnual ?? null,
-    nextYearForecastDistributionsPerUnitReit:
-      record.NextYearForecastDistributionsPerUnitREIT ?? null,
-    nextYearForecastPayoutRatioAnnual:
-      record.NextYearForecastPayoutRatioAnnual ?? null,
-    forecastNetSales2ndQuarter: record.ForecastNetSales2ndQuarter ?? null,
-    forecastOperatingProfit2ndQuarter:
-      record.ForecastOperatingProfit2ndQuarter ?? null,
-    forecastOrdinaryProfit2ndQuarter:
-      record.ForecastOrdinaryProfit2ndQuarter ?? null,
-    forecastProfit2ndQuarter: record.ForecastProfit2ndQuarter ?? null,
-    forecastEarningsPerShare2ndQuarter:
-      record.ForecastEarningsPerShare2ndQuarter ?? null,
-    nextYearForecastNetSales2ndQuarter:
-      record.NextYearForecastNetSales2ndQuarter ?? null,
-    nextYearForecastOperatingProfit2ndQuarter:
-      record.NextYearForecastOperatingProfit2ndQuarter ?? null,
-    nextYearForecastOrdinaryProfit2ndQuarter:
-      record.NextYearForecastOrdinaryProfit2ndQuarter ?? null,
-    nextYearForecastProfit2ndQuarter:
-      record.NextYearForecastProfit2ndQuarter ?? null,
-    nextYearForecastEarningsPerShare2ndQuarter:
-      record.NextYearForecastEarningsPerShare2ndQuarter ?? null,
-    forecastNetSales: record.ForecastNetSales ?? null,
-    forecastOperatingProfit: record.ForecastOperatingProfit ?? null,
-    forecastOrdinaryProfit: record.ForecastOrdinaryProfit ?? null,
-    forecastProfit: record.ForecastProfit ?? null,
-    forecastEarningsPerShare: record.ForecastEarningsPerShare ?? null,
-    nextYearForecastNetSales: record.NextYearForecastNetSales ?? null,
-    nextYearForecastOperatingProfit:
-      record.NextYearForecastOperatingProfit ?? null,
-    nextYearForecastOrdinaryProfit:
-      record.NextYearForecastOrdinaryProfit ?? null,
-    nextYearForecastProfit: record.NextYearForecastProfit ?? null,
-    nextYearForecastEarningsPerShare:
-      record.NextYearForecastEarningsPerShare ?? null,
-    numberOfIssuedAndOutstandingSharesAtEnd:
-      record.NumberOfIssuedAndOutstandingSharesAtEnd ?? null,
-    numberOfTreasuryStockAtEnd: record.NumberOfTreasuryStockAtEnd ?? null,
-    averageNumberOfShares: record.AverageNumberOfShares ?? null,
+    localCode: record.Code,
+    disclosureNumber: record.DiscNo,
+    disclosedDate: record.DiscDate,
+    disclosedTime: record.DiscTime ?? null,
+    typeOfDocument: record.DocType ?? null,
+    typeOfCurrentPeriod: record.CurPerType ?? null,
+    currentPeriodStartDate: record.CurPerSt ?? null,
+    currentPeriodEndDate: record.CurPerEn ?? null,
+    currentFiscalYearStartDate: record.CurFYSt ?? null,
+    currentFiscalYearEndDate: record.CurFYEn ?? null,
+    nextFiscalYearStartDate: record.NxtFYSt ?? null,
+    nextFiscalYearEndDate: record.NxtFYEn ?? null,
+    netSales: record.Sales ?? null,
+    operatingProfit: record.OP ?? null,
+    ordinaryProfit: record.OdP ?? null,
+    profit: record.NP ?? null,
+    earningsPerShare: record.EPS ?? null,
+    dilutedEarningsPerShare: record.DEPS ?? null,
+    bookValuePerShare: record.BPS ?? null,
+    totalAssets: record.TA ?? null,
+    equity: record.Eq ?? null,
+    equityToAssetRatio: record.EqAR ?? null,
+    cashFlowsFromOperatingActivities: record.CFO ?? null,
+    cashFlowsFromInvestingActivities: record.CFI ?? null,
+    cashFlowsFromFinancingActivities: record.CFF ?? null,
+    cashAndEquivalents: record.CashEq ?? null,
+    resultDividendPerShare1stQuarter: record.Div1Q ?? null,
+    resultDividendPerShare2ndQuarter: record.Div2Q ?? null,
+    resultDividendPerShare3rdQuarter: record.Div3Q ?? null,
+    resultDividendPerShareFiscalYearEnd: record.DivFY ?? null,
+    resultDividendPerShareAnnual: record.DivAnn ?? null,
+    distributionsPerUnitReit: record.DivUnit ?? null,
+    resultTotalDividendPaidAnnual: record.DivTotalAnn ?? null,
+    resultPayoutRatioAnnual: record.PayoutRatioAnn ?? null,
+    forecastDividendPerShare1stQuarter: record.FDiv1Q ?? null,
+    forecastDividendPerShare2ndQuarter: record.FDiv2Q ?? null,
+    forecastDividendPerShare3rdQuarter: record.FDiv3Q ?? null,
+    forecastDividendPerShareFiscalYearEnd: record.FDivFY ?? null,
+    forecastDividendPerShareAnnual: record.FDivAnn ?? null,
+    forecastDistributionsPerUnitReit: record.FDivUnit ?? null,
+    forecastTotalDividendPaidAnnual: record.FDivTotalAnn ?? null,
+    forecastPayoutRatioAnnual: record.FPayoutRatioAnn ?? null,
+    nextYearForecastDividendPerShare1stQuarter: record.NxFDiv1Q ?? null,
+    nextYearForecastDividendPerShare2ndQuarter: record.NxFDiv2Q ?? null,
+    nextYearForecastDividendPerShare3rdQuarter: record.NxFDiv3Q ?? null,
+    nextYearForecastDividendPerShareFiscalYearEnd: record.NxFDivFY ?? null,
+    nextYearForecastDividendPerShareAnnual: record.NxFDivAnn ?? null,
+    nextYearForecastDistributionsPerUnitReit: record.NxFDivUnit ?? null,
+    nextYearForecastPayoutRatioAnnual: record.NxFPayoutRatioAnn ?? null,
+    forecastNetSales2ndQuarter: record.FSales2Q ?? null,
+    forecastOperatingProfit2ndQuarter: record.FOP2Q ?? null,
+    forecastOrdinaryProfit2ndQuarter: record.FOdP2Q ?? null,
+    forecastProfit2ndQuarter: record.FNP2Q ?? null,
+    forecastEarningsPerShare2ndQuarter: record.FEPS2Q ?? null,
+    nextYearForecastNetSales2ndQuarter: record.NxFSales2Q ?? null,
+    nextYearForecastOperatingProfit2ndQuarter: record.NxFOP2Q ?? null,
+    nextYearForecastOrdinaryProfit2ndQuarter: record.NxFOdP2Q ?? null,
+    nextYearForecastProfit2ndQuarter: record.NxFNp2Q ?? null,
+    nextYearForecastEarningsPerShare2ndQuarter: record.NxFEPS2Q ?? null,
+    forecastNetSales: record.FSales ?? null,
+    forecastOperatingProfit: record.FOP ?? null,
+    forecastOrdinaryProfit: record.FOdP ?? null,
+    forecastProfit: record.FNP ?? null,
+    forecastEarningsPerShare: record.FEPS ?? null,
+    nextYearForecastNetSales: record.NxFSales ?? null,
+    nextYearForecastOperatingProfit: record.NxFOP ?? null,
+    nextYearForecastOrdinaryProfit: record.NxFOdP ?? null,
+    nextYearForecastProfit: record.NxFNp ?? null,
+    nextYearForecastEarningsPerShare: record.NxFEPS ?? null,
+    numberOfIssuedAndOutstandingSharesAtEnd: record.ShOutFY ?? null,
+    numberOfTreasuryStockAtEnd: record.TrShFY ?? null,
+    averageNumberOfShares: record.AvgSh ?? null,
     numberOfIssuedAndOutstandingSharesAtTheEndOfFiscalYearIncludingTreasuryStock:
-      record.NumberOfIssuedAndOutstandingSharesAtTheEndOfFiscalYearIncludingTreasuryStock ??
-      null,
-    numberOfTreasuryStockAtTheEndOfFiscalYear:
-      record.NumberOfTreasuryStockAtTheEndOfFiscalYear ?? null,
-    nonConsolidatedNetSales: record.NonConsolidatedNetSales ?? null,
-    nonConsolidatedOperatingProfit:
-      record.NonConsolidatedOperatingProfit ?? null,
-    nonConsolidatedOrdinaryProfit:
-      record.NonConsolidatedOrdinaryProfit ?? null,
-    nonConsolidatedProfit: record.NonConsolidatedProfit ?? null,
-    nonConsolidatedEarningsPerShare:
-      record.NonConsolidatedEarningsPerShare ?? null,
-    nonConsolidatedTotalAssets: record.NonConsolidatedTotalAssets ?? null,
-    nonConsolidatedEquity: record.NonConsolidatedEquity ?? null,
-    nonConsolidatedEquityToAssetRatio:
-      record.NonConsolidatedEquityToAssetRatio ?? null,
-    nonConsolidatedBookValuePerShare:
-      record.NonConsolidatedBookValuePerShare ?? null,
-    forecastNonConsolidatedNetSales2ndQuarter:
-      record.ForecastNonConsolidatedNetSales2ndQuarter ?? null,
-    forecastNonConsolidatedOperatingProfit2ndQuarter:
-      record.ForecastNonConsolidatedOperatingProfit2ndQuarter ?? null,
-    forecastNonConsolidatedOrdinaryProfit2ndQuarter:
-      record.ForecastNonConsolidatedOrdinaryProfit2ndQuarter ?? null,
-    forecastNonConsolidatedProfit2ndQuarter:
-      record.ForecastNonConsolidatedProfit2ndQuarter ?? null,
-    forecastNonConsolidatedEarningsPerShare2ndQuarter:
-      record.ForecastNonConsolidatedEarningsPerShare2ndQuarter ?? null,
-    nextYearForecastNonConsolidatedNetSales2ndQuarter:
-      record.NextYearForecastNonConsolidatedNetSales2ndQuarter ?? null,
-    nextYearForecastNonConsolidatedOperatingProfit2ndQuarter:
-      record.NextYearForecastNonConsolidatedOperatingProfit2ndQuarter ?? null,
-    nextYearForecastNonConsolidatedOrdinaryProfit2ndQuarter:
-      record.NextYearForecastNonConsolidatedOrdinaryProfit2ndQuarter ?? null,
-    nextYearForecastNonConsolidatedProfit2ndQuarter:
-      record.NextYearForecastNonConsolidatedProfit2ndQuarter ?? null,
-    nextYearForecastNonConsolidatedEarningsPerShare2ndQuarter:
-      record.NextYearForecastNonConsolidatedEarningsPerShare2ndQuarter ?? null,
-    forecastNonConsolidatedNetSales:
-      record.ForecastNonConsolidatedNetSales ?? null,
-    forecastNonConsolidatedOperatingProfit:
-      record.ForecastNonConsolidatedOperatingProfit ?? null,
-    forecastNonConsolidatedOrdinaryProfit:
-      record.ForecastNonConsolidatedOrdinaryProfit ?? null,
-    forecastNonConsolidatedProfit:
-      record.ForecastNonConsolidatedProfit ?? null,
-    forecastNonConsolidatedEarningsPerShare:
-      record.ForecastNonConsolidatedEarningsPerShare ?? null,
-    nextYearForecastNonConsolidatedNetSales:
-      record.NextYearForecastNonConsolidatedNetSales ?? null,
-    nextYearForecastNonConsolidatedOperatingProfit:
-      record.NextYearForecastNonConsolidatedOperatingProfit ?? null,
-    nextYearForecastNonConsolidatedOrdinaryProfit:
-      record.NextYearForecastNonConsolidatedOrdinaryProfit ?? null,
-    nextYearForecastNonConsolidatedProfit:
-      record.NextYearForecastNonConsolidatedProfit ?? null,
-    nextYearForecastNonConsolidatedEarningsPerShare:
-      record.NextYearForecastNonConsolidatedEarningsPerShare ?? null,
-    materialChangesInSubsidiaries:
-      record.MaterialChangesInSubsidiaries ?? null,
-    significantChangesInTheScopeOfConsolidation:
-      record.SignificantChangesInTheScopeOfConsolidation ?? null,
-    changesBasedOnRevisionsOfAccountingStandard:
-      record.ChangesBasedOnRevisionsOfAccountingStandard ?? null,
+      record.ShOutFY ?? null,
+    numberOfTreasuryStockAtTheEndOfFiscalYear: record.TrShFY ?? null,
+    materialChangesInSubsidiaries: record.MatChgSub ?? null,
+    significantChangesInTheScopeOfConsolidation: record.SigChgInC ?? null,
+    changesBasedOnRevisionsOfAccountingStandard: record.ChgByASRev ?? null,
     changesOtherThanOnesBasedOnRevisionsOfAccountingStandard:
-      record.ChangesOtherThanOnesBasedOnRevisionsOfAccountingStandard ?? null,
-    changesInAccountingEstimates: record.ChangesInAccountingEstimates ?? null,
-    retrospectiveRestatement: record.RetrospectiveRestatement ?? null,
+      record.ChgNoASRev ?? null,
+    changesInAccountingEstimates: record.ChgAcEst ?? null,
+    retrospectiveRestatement: record.RetroRst ?? null,
+    nonConsolidatedNetSales: record.NCSales ?? null,
+    nonConsolidatedOperatingProfit: record.NCOP ?? null,
+    nonConsolidatedOrdinaryProfit: record.NCOdP ?? null,
+    nonConsolidatedProfit: record.NCNP ?? null,
+    nonConsolidatedEarningsPerShare: record.NCEPS ?? null,
+    nonConsolidatedTotalAssets: record.NCTA ?? null,
+    nonConsolidatedEquity: record.NCEq ?? null,
+    nonConsolidatedEquityToAssetRatio: record.NCEqAR ?? null,
+    nonConsolidatedBookValuePerShare: record.NCBPS ?? null,
+    forecastNonConsolidatedNetSales2ndQuarter: record.FNCSales2Q ?? null,
+    forecastNonConsolidatedOperatingProfit2ndQuarter: record.FNCOP2Q ?? null,
+    forecastNonConsolidatedOrdinaryProfit2ndQuarter: record.FNCOdP2Q ?? null,
+    forecastNonConsolidatedProfit2ndQuarter: record.FNCNP2Q ?? null,
+    forecastNonConsolidatedEarningsPerShare2ndQuarter: record.FNCEPS2Q ?? null,
+    nextYearForecastNonConsolidatedNetSales2ndQuarter:
+      record.NxFNCSales2Q ?? null,
+    nextYearForecastNonConsolidatedOperatingProfit2ndQuarter:
+      record.NxFNCOP2Q ?? null,
+    nextYearForecastNonConsolidatedOrdinaryProfit2ndQuarter:
+      record.NxFNCOdP2Q ?? null,
+    nextYearForecastNonConsolidatedProfit2ndQuarter:
+      record.NxFNCNP2Q ?? null,
+    nextYearForecastNonConsolidatedEarningsPerShare2ndQuarter:
+      record.NxFNCEPS2Q ?? null,
+    forecastNonConsolidatedNetSales: record.FNCSales ?? null,
+    forecastNonConsolidatedOperatingProfit: record.FNCOP ?? null,
+    forecastNonConsolidatedOrdinaryProfit: record.FNCOdP ?? null,
+    forecastNonConsolidatedProfit: record.FNCNP ?? null,
+    forecastNonConsolidatedEarningsPerShare: record.FNCEPS ?? null,
+    nextYearForecastNonConsolidatedNetSales: record.NxFNCSales ?? null,
+    nextYearForecastNonConsolidatedOperatingProfit: record.NxFNCOP ?? null,
+    nextYearForecastNonConsolidatedOrdinaryProfit: record.NxFNCOdP ?? null,
+    nextYearForecastNonConsolidatedProfit: record.NxFNCNP ?? null,
+    nextYearForecastNonConsolidatedEarningsPerShare: record.NxFNCEPS ?? null,
   };
 }
 

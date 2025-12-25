@@ -6,15 +6,15 @@ config({ path: envPath });
 
 console.log(`Loaded environment variables from ${envPath}`);
 
-const DEFAULT_BASE_URL = "https://api.jquants.com/v1/";
+const DEFAULT_BASE_URL = "https://api.jquants.com/v2/";
 
-const refreshToken = process.env.JQUANTS_REFRESH_TOKEN;
-if (!refreshToken) {
-  throw new Error("Missing JQUANTS_REFRESH_TOKEN in .env");
+const apiKey = process.env.JQUANTS_API_KEY;
+if (!apiKey) {
+  throw new Error("Missing JQUANTS_API_KEY in .env");
 }
 
 export const env = {
-  refreshToken,
+  apiKey,
   baseUrl: (process.env.JQUANTS_API_BASE_URL ?? DEFAULT_BASE_URL).trim(),
 };
 
@@ -31,10 +31,5 @@ type StatementsEnv = {
   from?: string;
   to?: string;
 };
-
-function cleanString(value?: string): string | undefined {
-  const trimmed = value?.trim();
-  return trimmed ? trimmed : undefined;
-}
 
 export type { DailyQuotesEnv, StatementsEnv };

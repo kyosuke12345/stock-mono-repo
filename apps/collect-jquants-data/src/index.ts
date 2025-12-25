@@ -9,7 +9,7 @@ import {
 
 const BATCH_SIZE = 1000;
 const client = new JQuantsClient({
-  refreshToken: env.refreshToken,
+  apiKey: env.apiKey,
   baseUrl: env.baseUrl,
 });
 
@@ -21,24 +21,15 @@ async function main(): Promise<void> {
     orderBy: { code: "asc" },
   });
   const companyLength = companies.length;
-  let processedCount = 0;
   const startTime = Date.now();
   console.log(`Fetched ${companyLength} companies from DB`);
-  await processInChunks(
-    companies.map((c) => c.code),
-    async (chunk) => {
-      const chunkPromises = chunk.map((code) => syncData(code));
-      await Promise.all(chunkPromises);
-      processedCount += chunk.length;
-      const elapsed = (Date.now() - startTime) / 1000;
-      console.log(
-        `Processed ${processedCount} / ${companyLength} companies in ${elapsed.toFixed(
-          2
-        )} seconds`
-      );
-    },
-    30
-  );
+  let processedCount = 0;
+  for (const company of companies) {
+    await syncData(company.code);
+    processedCount++;
+    console.log(`Synced data for company ${company.code}`);
+    console.log(`Processed ${processedCount} / ${companyLength}`);
+  }
   const totalElapsed = (Date.now() - startTime) / 1000;
   console.log(
     `Completed data sync for ${companyLength} companies in ${totalElapsed.toFixed(
@@ -73,14 +64,17 @@ async function syncCompanyInfo(): Promise<void> {
 
 async function syncData(companyCode: string): Promise<void> {
   console.log(`syncData records. ${companyCode}`);
-  const [companyStatements, quotes] = await Promise.all([
-    client.fetchStatements({
-      code: companyCode,
-    }),
-    client.fetchDailyQuotes({
-      code: companyCode,
-    }),
-  ]);
+  const companyStatements = await client.fetchStatements({
+    code: companyCode,
+  });
+  const latestDailyStock = await prisma.dailyStockInfo.findFirst({
+    where: { code: companyCode },
+    orderBy: { date: "desc" },
+  });
+  const quotes = await client.fetchDailyQuotes({
+    code: companyCode,
+    from: latestDailyStock ? latestDailyStock.date : undefined,
+  });
   if (companyStatements.length > 0) {
     await processInChunks(companyStatements, async (chunk) => {
       return prisma.$transaction(
